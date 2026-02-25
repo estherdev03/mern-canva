@@ -9,10 +9,16 @@ import { FaRegImages } from "react-icons/fa";
 import { RxTransparencyGrid } from "react-icons/rx";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import TemplateDesign from "../components/main/TemplateDesign";
+import MyImages from "../components/MyImages";
+import Project from "../components/Project";
+import Image from "../components/Image";
 
 const Main = () => {
   const [state, setState] = useState("");
   const [show, setShow] = useState({ status: true, name: "" });
+  const [currentComponent, setCurrentComponent] = useState("");
+  const [components, setComponents] = useState("");
+
   const setElements = (type, name) => {
     setState(type);
     setShow({
@@ -106,12 +112,50 @@ const Main = () => {
                 <TemplateDesign type="main" />
               </div>
             )}
-            {state === "shape" && <div>Shape</div>}
-            {state === "image" && <div>image</div>}
-            {state === "text" && <div>text</div>}
-            {state === "projects" && <div>projects</div>}
-            {state === "initImage" && <div>initImage</div>}
-            {state === "background" && <div>background</div>}
+            {state === "shape" && (
+              <div className="grid grid-cols-3 gap-2">
+                <div className="h-[90px] bg-[#3c3c3d] cursor-pointer"></div>
+                <div className="h-[90px] bg-[#3c3c3d] cursor-pointer rounded-full"></div>
+                <div
+                  style={{ clipPath: "polygon(50% 0, 100% 100%, 0 100%)" }}
+                  className="h-[90px] bg-[#3c3c3d] cursor-pointer "
+                ></div>
+              </div>
+            )}
+            {state === "image" && <MyImages />}
+            {state === "text" && (
+              <div>
+                <div className="grid grid-cols-1 gap-2">
+                  <div className="bg-[#3c3c3d] cursor-pointer font-bold p-3 text-white text-xl rounded-sm">
+                    <h2>Add a text</h2>
+                  </div>
+                </div>
+              </div>
+            )}
+            {state === "projects" && <Project />}
+            {state === "initImage" && (
+              <div className="h-[88vh] overflow-x-auto flex justify-start items-start scrollbar-hide">
+                <Image />
+              </div>
+            )}
+            {state === "background" && (
+              <div className="h-[88vh] overflow-x-auto flex justify-start items-start scrollbar-hide w-full">
+                <div className="grid grid-cols-2 gap-2 w-full">
+                  {[1, 2, 3, 4, 5, 6].map((img, idx) => (
+                    <div
+                      key={idx}
+                      className="w-full h-[90px] overflow-hidden rounded-sm cursor-pointer"
+                    >
+                      <img
+                        className="w-full h-full object-fill"
+                        src="../../canva.png"
+                        alt="placeholder"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

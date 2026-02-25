@@ -12,7 +12,7 @@ const Header = () => {
             alt="canva logo"
           />
         </Link>
-        <span className="text-xl">Easy Canva</span>
+        <span className="text-xl">Canva</span>
         <div className="flex justify-center items-center gap-2 ">
           <button className="px-3 py-[6px] outline-none bg-[#7482f6] rounded-md text-white">
             Save
