@@ -27,6 +27,12 @@ const Main = () => {
   const [width, setWidth] = useState("");
   const [height, setHeight] = useState("");
 
+  const [padding, setPadding] = useState("");
+  const [font, setFont] = useState("");
+  const [weight, setWeight] = useState("");
+  const [text, settext] = useState("");
+  const [opacity, setOpacity] = useState("");
+
   const [rotate, setRotate] = useState("");
   const [components, setComponents] = useState([
     {
@@ -157,7 +163,7 @@ const Main = () => {
       type,
       left: 10,
       top: 10,
-      opaity: 1,
+      opacity: 1,
       width: 200,
       height: 150,
       rotate,
@@ -169,6 +175,36 @@ const Main = () => {
       rotateElement,
     };
     setComponents([...components, style]);
+  };
+
+  const addText = (name, type) => {
+    const style = {
+      id: Date.now(),
+      name,
+      type,
+      left: 10,
+      top: 10,
+      opacity: 1,
+      rotate,
+      z_index: 10,
+      padding: 6,
+      font: 22,
+      title: "Add your text",
+      weight: 400,
+      color: "#3c3c3d",
+      setCurrentComponent: (a) => setCurrentComponent(a),
+      moveElement,
+      resizeElement,
+      rotateElement,
+    };
+    setFont("");
+    setWeight("");
+    setCurrentComponent(style);
+    setComponents([...components, style]);
+  };
+
+  const opacityHandler = (e) => {
+    setOpacity(parseFloat(e.target.value));
   };
 
   useEffect(() => {
@@ -184,6 +220,7 @@ const Main = () => {
       if (currentComponent.name !== "main_frame") {
         components[index].left = left || currentComponent.left;
         components[index].top = top || currentComponent.top;
+        components[index].opacity = opacity || currentComponent.opacity;
       }
 
       if (currentComponent.name !== "text") {
@@ -199,9 +236,10 @@ const Main = () => {
       setColor("");
       setWidth("");
       setHeight("");
-      setRotate("");
+      setRotate(0);
+      setOpacity("");
     }
-  }, [color, img, left, top, width, height, rotate]);
+  }, [color, img, left, top, width, height, rotate, opacity]);
 
   return (
     <div className="min-w-screen h-screen bg-black">
@@ -319,7 +357,10 @@ const Main = () => {
             {state === "text" && (
               <div>
                 <div className="grid grid-cols-1 gap-2">
-                  <div className="bg-[#3c3c3d] cursor-pointer font-bold p-3 text-white text-xl rounded-sm">
+                  <div
+                    onClick={() => addText("text", "title")}
+                    className="bg-[#3c3c3d] cursor-pointer font-bold p-3 text-white text-xl rounded-sm"
+                  >
                     <h2>Add a text</h2>
                   </div>
                 </div>
@@ -407,6 +448,22 @@ const Main = () => {
                         Remove background
                       </div>
                     )}
+                  {currentComponent.name !== "main_frame" && (
+                    <div className="flex gap-6">
+                      <div className="flex gap-1 justify-start items-start">
+                        <span className="text-md w-[70px]">Opacity:</span>
+                        <input
+                          type="number"
+                          className="w-[65px] border border-gray-700 bg-transparent outline-none px-2 rounded-md py-1 text-sm"
+                          step={0.1}
+                          min={0.1}
+                          max={1}
+                          value={currentComponent.opacity}
+                          onChange={opacityHandler}
+                        />
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             )}

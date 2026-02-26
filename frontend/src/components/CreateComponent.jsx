@@ -22,6 +22,8 @@ const CreateComponent = ({ info, currentComponent, removeComponent }) => {
       </div>
     );
   }
+
+  // Shape
   if (info.name === "shape" && info.type === "rect") {
     html = (
       <div
@@ -45,7 +47,7 @@ const CreateComponent = ({ info, currentComponent, removeComponent }) => {
         {currentComponent.id === info.id && (
           <div
             onClick={() => removeComponent(info.id)}
-            className="px-2 py-1 w-fit bg-white text-[12px] hover:text-red-500 top-0 hidden group-hover:block cursor-pointer rounded-sm"
+            className="px-2 py-1 absolute w-fit bg-white text-[12px] hover:text-red-500 top-0 hidden group-hover:block cursor-pointer rounded-sm"
           >
             <FaTrashAlt />
           </div>
@@ -120,6 +122,44 @@ const CreateComponent = ({ info, currentComponent, removeComponent }) => {
           <div
             onClick={() => removeComponent(info.id)}
             className="px-2 py-1 w-fit bg-white absolute text-[12px] hover:text-red-500 top-0 hidden group-hover:block cursor-pointer rounded-sm"
+          >
+            <FaTrashAlt />
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // Text
+  if (info.name === "text") {
+    html = (
+      <div
+        id={randValue}
+        onClick={() => {
+          info.setCurrentComponent(info);
+        }}
+        style={{
+          left: info.left + "px",
+          top: info.top + "px",
+          z_index: info.z_index,
+          transform: info.rotate ? `rotate(${info.rotate}deg)` : "rotate(0deg)",
+          padding: info.padding,
+          color: info.color,
+          opacity: info.opacity,
+        }}
+        className="absolute group hover:border-[2px] hover:border-indigo-500"
+      >
+        <Element id={randValue} info={info} exId="" />
+        <h2
+          style={{ fontSize: info.font + "px", fontWeight: info.weight + "px" }}
+          className="w-full h-full"
+        >
+          {info.title}
+        </h2>
+        {currentComponent.id === info.id && (
+          <div
+            onClick={() => removeComponent(info.id)}
+            className="absolute px-1 py-1 w-fit bg-white text-[12px] hover:text-red-500 hidden group-hover:block cursor-pointer rounded-sm top-0 left-0 text-black"
           >
             <FaTrashAlt />
           </div>
