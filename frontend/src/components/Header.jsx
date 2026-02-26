@@ -14,10 +14,10 @@ const Header = () => {
         </Link>
         <span className="text-xl">Canva</span>
         <div className="flex justify-center items-center gap-2 ">
-          <button className="px-3 py-[6px] outline-none bg-[#7482f6] rounded-md text-white">
+          <button className="px-3 py-[6px] outline-none bg-[#7482f6] rounded-md text-white cursor-pointer hover:bg-[#5563da]">
             Save
           </button>
-          <button className="px-3 py-[6px] outline-none bg-[#a955f7] rounded-md text-white">
+          <button className="px-3 py-[6px] outline-none bg-[#a955f7] rounded-md text-white cursor-pointer hover:bg-[#9f40f8]">
             Download
           </button>
         </div>

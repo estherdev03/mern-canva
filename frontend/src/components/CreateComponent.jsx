@@ -41,7 +41,7 @@ const CreateComponent = ({ info, currentComponent, removeComponent }) => {
         }}
         className="absolute group hover:border-[2px] hover:border-indigo-500"
       >
-        <Element id={randValue} info exId="" />
+        <Element id={randValue} info={info} exId="" />
         {currentComponent.id === info.id && (
           <div
             onClick={() => removeComponent(info.id)}
@@ -78,7 +78,7 @@ const CreateComponent = ({ info, currentComponent, removeComponent }) => {
             opacity: info.opacity,
           }}
         ></div>
-        <Element id={randValue} info exId={`${randValue}c`} />
+        <Element id={randValue} info={info} exId={`${randValue}c`} />
         {currentComponent.id === info.id && (
           <div
             onClick={() => removeComponent(info.id)}
@@ -115,7 +115,7 @@ const CreateComponent = ({ info, currentComponent, removeComponent }) => {
             clipPath: "polygon(50% 0, 100% 100%, 0 100%)",
           }}
         ></div>
-        <Element id={randValue} info exId={`${randValue}t`} />
+        <Element id={randValue} info={info} exId={`${randValue}t`} />
         {currentComponent.id === info.id && (
           <div
             onClick={() => removeComponent(info.id)}

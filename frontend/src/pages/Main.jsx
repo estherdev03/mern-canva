@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/immutability */
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./../components/Header";
 import { LuLayoutTemplate } from "react-icons/lu";
 import { FaShapes } from "react-icons/fa6";
@@ -21,6 +21,12 @@ const Main = () => {
   const [currentComponent, setCurrentComponent] = useState("");
   const [color, setColor] = useState("");
   const [img, setImg] = useState("");
+
+  const [left, setLeft] = useState("");
+  const [top, setTop] = useState("");
+  const [width, setWidth] = useState("");
+  const [height, setHeight] = useState("");
+
   const [rotate, setRotate] = useState("");
   const [components, setComponents] = useState([
     {
@@ -37,16 +43,89 @@ const Main = () => {
     },
   ]);
 
-  const moveElement = () => {
-    console.log("move");
+  const moveElement = (id, currentInfo) => {
+    setCurrentComponent(currentInfo);
+    let isMoving = true;
+
+    const currentDiv = document.getElementById(id);
+
+    const mouseMove = ({ movementX, movementY }) => {
+      const getStyle = window.getComputedStyle(currentDiv);
+      const left = parseInt(getStyle.left);
+      const top = parseInt(getStyle.top);
+      if (isMoving) {
+        currentDiv.style.left = `${left + movementX}px`;
+        currentDiv.style.top = `${top + movementY}px`;
+      }
+    };
+    const mouseUp = (e) => {
+      isMoving = false;
+      window.removeEventListener("mousemove", mouseMove);
+      window.removeEventListener("mouseup", mouseUp);
+      setLeft(parseInt(currentDiv.style.left));
+      setTop(parseInt(currentDiv.style.top));
+    };
+    window.addEventListener("mousemove", mouseMove);
+    window.addEventListener("mouseup", mouseUp);
   };
 
-  const resizeElement = () => {
-    console.log("resize");
+  const resizeElement = (id, currentInfo) => {
+    setCurrentComponent(currentInfo);
+    let isMoving = true;
+
+    const currentDiv = document.getElementById(id);
+
+    const mouseMove = ({ movementX, movementY }) => {
+      const getStyle = window.getComputedStyle(currentDiv);
+      const width = parseInt(getStyle.width);
+      const height = parseInt(getStyle.height);
+      if (isMoving) {
+        currentDiv.style.width = `${width + movementX}px`;
+        currentDiv.style.height = `${height + movementY}px`;
+      }
+    };
+    const mouseUp = (e) => {
+      isMoving = false;
+      window.removeEventListener("mousemove", mouseMove);
+      window.removeEventListener("mouseup", mouseUp);
+      setWidth(parseInt(currentDiv.style.width));
+      setHeight(parseInt(currentDiv.style.height));
+    };
+    window.addEventListener("mousemove", mouseMove);
+    window.addEventListener("mouseup", mouseUp);
   };
 
-  const rotateElement = () => {
-    console.log("rotate");
+  const rotateElement = (id, currentInfo, e) => {
+    setCurrentComponent("");
+    setCurrentComponent(currentInfo);
+    const target = document.getElementById(id);
+    if (!target) return;
+
+    const rect = target.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    const getAngle = (clientX, clientY) =>
+      Math.atan2(clientY - centerY, clientX - centerX) * (180 / Math.PI);
+
+    let startAngle = getAngle(e.clientX, e.clientY);
+    let currentAngle = Number(currentInfo.rotate) || 0;
+
+    const mouseMove = (moveEvent) => {
+      const angle = getAngle(moveEvent.clientX, moveEvent.clientY);
+      const delta = angle - startAngle;
+      startAngle = angle;
+      currentAngle += delta;
+      target.style.transform = `rotate(${currentAngle}deg)`;
+    };
+    const mouseUp = () => {
+      window.removeEventListener("mousemove", mouseMove);
+      window.removeEventListener("mouseup", mouseUp);
+      setRotate(currentAngle);
+    };
+
+    window.addEventListener("mousemove", mouseMove);
+    window.addEventListener("mouseup", mouseUp);
   };
 
   const removeComponent = (id) => {
@@ -102,10 +181,27 @@ const Main = () => {
         components[index].image = img || currentComponent.image;
       }
 
+      if (currentComponent.name !== "main_frame") {
+        components[index].left = left || currentComponent.left;
+        components[index].top = top || currentComponent.top;
+      }
+
+      if (currentComponent.name !== "text") {
+        components[index].width = width || currentComponent.width;
+        components[index].height = height || currentComponent.height;
+        components[index].rotate = rotate || currentComponent.rotate;
+      }
+
       components[index].color = color || currentComponent.color;
       setComponents([...temp, components[index]]);
+      setLeft("");
+      setTop("");
+      setColor("");
+      setWidth("");
+      setHeight("");
+      setRotate("");
     }
-  }, [color, img]);
+  }, [color, img, left, top, width, height, rotate]);
 
   return (
     <div className="min-w-screen h-screen bg-black">
@@ -242,9 +338,7 @@ const Main = () => {
                     <div
                       key={idx}
                       onClick={() => {
-                        console.log("Click");
-
-                        setImg("../../canva.png");
+                        currentComponent && setImg("../../canva.png");
                       }}
                       className="w-full h-[90px] overflow-hidden rounded-sm cursor-pointer"
                     >
