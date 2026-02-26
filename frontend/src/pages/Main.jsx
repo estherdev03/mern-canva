@@ -21,6 +21,7 @@ const Main = () => {
   const [currentComponent, setCurrentComponent] = useState("");
   const [color, setColor] = useState("");
   const [img, setImg] = useState("");
+  const [rotate, setRotate] = useState("");
   const [components, setComponents] = useState([
     {
       name: "main_frame",
@@ -48,8 +49,10 @@ const Main = () => {
     console.log("rotate");
   };
 
-  const removeComponent = () => {
-    console.log("remove component");
+  const removeComponent = (id) => {
+    const rest = components.filter((c) => c.id !== id);
+    setComponents([...rest]);
+    setCurrentComponent("");
   };
 
   const removeBackground = () => {
@@ -66,6 +69,27 @@ const Main = () => {
       status: false,
       name,
     });
+  };
+
+  const createShape = (name, type) => {
+    const style = {
+      id: Date.now(),
+      name,
+      type,
+      left: 10,
+      top: 10,
+      opaity: 1,
+      width: 200,
+      height: 150,
+      rotate,
+      z_index: 2,
+      color: "#3c3c3d",
+      setCurrentComponent: (a) => setCurrentComponent(a),
+      moveElement,
+      resizeElement,
+      rotateElement,
+    };
+    setComponents([...components, style]);
   };
 
   useEffect(() => {
@@ -87,6 +111,7 @@ const Main = () => {
     <div className="min-w-screen h-screen bg-black">
       <Header />
       <div className="flex h-[calc(100%-60px)] w-screen">
+        {/* Sidebar */}
         <div className="w-[80px] bg-[#18191b] z-50 h-full text-gray-400 overflow-y-auto">
           <div
             onClick={() => setElements("design", "design")}
@@ -153,6 +178,7 @@ const Main = () => {
           </div>
         </div>
 
+        {/* Main content */}
         <div className="h-full w-[calc(100%-75px)]">
           <div
             className={`${show.status ? "p-0 -left-[350px]" : "px-8 left-[75px] py-5"} bg-[#252627] h-full fixed transition-all w-[350px] z-30 duration-700`}
@@ -172,9 +198,22 @@ const Main = () => {
             )}
             {state === "shape" && (
               <div className="grid grid-cols-3 gap-2">
-                <div className="h-[90px] bg-[#3c3c3d] cursor-pointer"></div>
-                <div className="h-[90px] bg-[#3c3c3d] cursor-pointer rounded-full"></div>
                 <div
+                  className="h-[90px] bg-[#3c3c3d] cursor-pointer"
+                  onClick={() => {
+                    createShape("shape", "rect");
+                  }}
+                ></div>
+                <div
+                  className="h-[90px] bg-[#3c3c3d] cursor-pointer rounded-full"
+                  onClick={() => {
+                    createShape("shape", "circle");
+                  }}
+                ></div>
+                <div
+                  onClick={() => {
+                    createShape("shape", "triangle");
+                  }}
                   style={{ clipPath: "polygon(50% 0, 100% 100%, 0 100%)" }}
                   className="h-[90px] bg-[#3c3c3d] cursor-pointer "
                 ></div>
