@@ -1,9 +1,32 @@
+import { useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
+import api from "../utils/api";
+// import { useNavigate } from "react-router-dom";
 
-const SigninForm = ({ inputHandler, state }) => {
+const SigninForm = ({ inputHandler, state, setState }) => {
+  // const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const userLogin = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const { data } = await api.post("/api/user-login", state);
+      setLoading(false);
+      localStorage.setItem("canva_token", data.token);
+      setState({
+        email: "",
+        password: "",
+      });
+      // navigate("/");
+      window.location.href = "/";
+    } catch (error) {
+      setLoading(false);
+      console.log(error.response);
+    }
+  };
   return (
-    <form action="">
+    <form onSubmit={userLogin}>
       <div className="flex flex-col gap-2 mb-3 text-white ">
         <label htmlFor="email" className="font-semibold">
           Email
@@ -31,8 +54,11 @@ const SigninForm = ({ inputHandler, state }) => {
         />
       </div>
       <div>
-        <button className="px-3 py-2 rounded-md bg-purple-500 w-full outline-none hover:bg-purple-600 text-white">
-          Sign in
+        <button
+          disabled={loading}
+          className="px-3 py-2 rounded-md bg-purple-500 w-full outline-none hover:bg-purple-600 text-white disabled:cursor-not-allowed hover:cursor-pointer"
+        >
+          {loading ? "Loading..." : "Sign in"}
         </button>
       </div>
       <div className="flex py-4 justify-betwen items-center px-3">

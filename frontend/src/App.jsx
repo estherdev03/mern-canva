@@ -5,11 +5,12 @@ import Project from "./components/Project";
 import Template from "./components/Template";
 import CreateDesign from "./components/CreateDesign";
 import Main from "./pages/Main";
+import Index from "./pages/Index";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: <Index />,
     children: [
       {
         path: "/",

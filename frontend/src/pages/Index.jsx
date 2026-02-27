@@ -11,8 +11,6 @@ const Index = () => {
     password: "",
   });
 
-  console.log(state);
-
   const inputHandler = (e) => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
@@ -33,12 +31,20 @@ const Index = () => {
           {type === "sign in" ? (
             <>
               <h2 className="mb-2 text-white text-lg text-center">Sign in</h2>
-              <SigninForm inputHandler={inputHandler} state={state} />
+              <SigninForm
+                inputHandler={inputHandler}
+                state={state}
+                setState={setState}
+              />
             </>
           ) : (
             <>
               <h2 className="mb-2 text-white text-lg text-center">Sign up</h2>
-              <SignupForm inputHandler={inputHandler} state={state} />
+              <SignupForm
+                inputHandler={inputHandler}
+                state={state}
+                setState={setState}
+              />
             </>
           )}
         </div>
