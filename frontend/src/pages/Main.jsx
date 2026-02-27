@@ -12,8 +12,8 @@ import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import TemplateDesign from "../components/main/TemplateDesign";
 import MyImages from "../components/MyImages";
 import Project from "../components/Project";
-import Image from "../components/Image";
 import CreateComponent from "../components/CreateComponent";
+import Image from "../components/Image";
 
 const Main = () => {
   const [state, setState] = useState("");
@@ -33,6 +33,8 @@ const Main = () => {
   const [text, setText] = useState("");
   const [opacity, setOpacity] = useState("");
   const [zIndex, setZIndex] = useState("");
+
+  const [radius, setRadius] = useState(0);
 
   const [rotate, setRotate] = useState("");
   const [components, setComponents] = useState([
@@ -65,7 +67,7 @@ const Main = () => {
         currentDiv.style.top = `${top + movementY}px`;
       }
     };
-    const mouseUp = (e) => {
+    const mouseUp = () => {
       isMoving = false;
       window.removeEventListener("mousemove", mouseMove);
       window.removeEventListener("mouseup", mouseUp);
@@ -91,7 +93,7 @@ const Main = () => {
         currentDiv.style.height = `${height + movementY}px`;
       }
     };
-    const mouseUp = (e) => {
+    const mouseUp = () => {
       isMoving = false;
       window.removeEventListener("mousemove", mouseMove);
       window.removeEventListener("mouseup", mouseUp);
@@ -204,6 +206,30 @@ const Main = () => {
     setComponents([...components, style]);
   };
 
+  const addImage = (img) => {
+    setCurrentComponent("");
+    const style = {
+      id: Date.now(),
+      name: "image",
+      type: "image",
+      left: 10,
+      top: 10,
+      opacity: 1,
+      width: 200,
+      height: 150,
+      rotate,
+      z_index: 2,
+      radius: 0,
+      image: img,
+      setCurrentComponent: (a) => setCurrentComponent(a),
+      moveElement,
+      resizeElement,
+      rotateElement,
+    };
+    setCurrentComponent(style);
+    setComponents([...components, style]);
+  };
+
   const opacityHandler = (e) => {
     setOpacity(parseFloat(e.target.value));
   };
@@ -237,7 +263,11 @@ const Main = () => {
         if (padding !== "") updatedComponent.padding = padding;
         if (font !== "") updatedComponent.font = font;
         if (weight !== "") updatedComponent.weight = weight;
-        if (text !== "") updatedComponent.title = text;
+        if (text !== "") updatedComponent.text = text;
+      }
+
+      if (currentComponent.name === "image") {
+        if (radius !== "") updatedComponent.radius = radius;
       }
 
       if (color !== "") updatedComponent.color = color;
@@ -256,6 +286,7 @@ const Main = () => {
       setFont("");
       setWeight("");
       setText("");
+      setRadius("");
     }
   }, [
     color,
@@ -271,6 +302,7 @@ const Main = () => {
     font,
     weight,
     text,
+    radius,
   ]);
 
   return (
@@ -362,6 +394,8 @@ const Main = () => {
                 <TemplateDesign type="main" />
               </div>
             )}
+
+            {/* Shape */}
             {state === "shape" && (
               <div className="grid grid-cols-3 gap-2">
                 <div
@@ -385,7 +419,11 @@ const Main = () => {
                 ></div>
               </div>
             )}
-            {state === "image" && <MyImages />}
+
+            {/* Upload image */}
+            {state === "image" && <MyImages addImage={addImage} />}
+
+            {/* Text */}
             {state === "text" && (
               <div>
                 <div className="grid grid-cols-1 gap-2">
@@ -399,11 +437,15 @@ const Main = () => {
               </div>
             )}
             {state === "projects" && <Project />}
+
+            {/* Images */}
             {state === "initImage" && (
               <div className="h-[88vh] overflow-x-auto flex justify-start items-start scrollbar-hide">
-                <Image />
+                <Image addImage={addImage} />
               </div>
             )}
+
+            {/* Background */}
             {state === "background" && (
               <div className="h-[88vh] overflow-x-auto flex justify-start items-start scrollbar-hide w-full">
                 <div className="grid grid-cols-2 gap-2 w-full">
@@ -426,6 +468,8 @@ const Main = () => {
               </div>
             )}
           </div>
+
+          {/* Right sidebar */}
           <div className="w-full flex h-full">
             <div
               className={`flex justify-center relative items-center h-full ${!currentComponent ? "w-full" : "w-[calc(100%-250px)]"} overflow-hidden`}
@@ -569,6 +613,21 @@ const Main = () => {
                             </button>
                           </div>
                         </>
+                      )}
+                      {currentComponent.name === "image" && (
+                        <div className="flex gap-1 justify-start items-start">
+                          <span className="text-md w-[70px]">Radius:</span>
+                          <input
+                            type="number"
+                            className="w-[65px] border border-gray-700 bg-transparent outline-none px-2 rounded-md py-1 text-sm"
+                            step={1}
+                            min={0}
+                            value={currentComponent.radius}
+                            onChange={(e) => {
+                              setRadius(e.target.value);
+                            }}
+                          />
+                        </div>
                       )}
                     </div>
                   )}

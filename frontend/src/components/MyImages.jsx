@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "./Image";
 
-const MyImages = () => {
+const MyImages = ({ addImage }) => {
   return (
     <div>
       <div className="h-[40px] flex justify-center items-center bg-purple-500 rounded-md text-white mb-3">
@@ -11,7 +11,7 @@ const MyImages = () => {
         <input type="file" id="image" className="hidden" />
       </div>
       <div className="h-[80vh] overflow-x-auto flex justify-start items-start scrollbar-hide">
-        <Image />
+        <Image addImage={addImage} />
       </div>
     </div>
   );

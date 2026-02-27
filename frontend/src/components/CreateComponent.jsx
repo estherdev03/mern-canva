@@ -2,6 +2,7 @@ import { FaTrashAlt } from "react-icons/fa";
 import Element from "./Element";
 
 const CreateComponent = ({ info, currentComponent, removeComponent }) => {
+  // eslint-disable-next-line react-hooks/purity
   const randValue = Math.floor(Math.random() * 100);
 
   let html = "";
@@ -160,6 +161,47 @@ const CreateComponent = ({ info, currentComponent, removeComponent }) => {
           <div
             onClick={() => removeComponent(info.id)}
             className="absolute px-1 py-1 w-fit bg-white text-[12px] hover:text-red-500 hidden group-hover:block cursor-pointer rounded-sm top-0 left-0 text-black"
+          >
+            <FaTrashAlt />
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // Image
+  if (info.name === "image") {
+    html = (
+      <div
+        id={randValue}
+        onClick={() => {
+          info.setCurrentComponent(info);
+        }}
+        style={{
+          left: info.left + "px",
+          top: info.top + "px",
+          zIndex: info.z_index,
+          transform: info.rotate ? `rotate(${info.rotate}deg)` : "rotate(0deg)",
+          opacity: info.opacity,
+        }}
+        className="absolute group hover:border-[2px] hover:border-indigo-500"
+      >
+        <Element id={randValue} info={info} exId={`${randValue}img`} />
+        <div
+          className="overflow-hidden"
+          id={`${randValue}img`}
+          style={{
+            width: info.width + "px",
+            height: info.height + "px",
+            borderRadius: `${info.radius}%`,
+          }}
+        >
+          <img className="w-full h-full" src={info.image} alt="image" />
+        </div>
+        {currentComponent.id === info.id && (
+          <div
+            onClick={() => removeComponent(info.id)}
+            className="px-2 py-1 w-fit bg-white absolute text-[12px] hover:text-red-500 top-0 hidden group-hover:block cursor-pointer rounded-sm"
           >
             <FaTrashAlt />
           </div>
