@@ -30,8 +30,9 @@ const Main = () => {
   const [padding, setPadding] = useState("");
   const [font, setFont] = useState("");
   const [weight, setWeight] = useState("");
-  const [text, settext] = useState("");
+  const [text, setText] = useState("");
   const [opacity, setOpacity] = useState("");
+  const [zIndex, setZIndex] = useState("");
 
   const [rotate, setRotate] = useState("");
   const [components, setComponents] = useState([
@@ -210,27 +211,39 @@ const Main = () => {
   useEffect(() => {
     if (currentComponent) {
       const index = components.findIndex((c) => c.id === currentComponent.id);
+      if (index === -1) return;
 
       const temp = components.filter((c) => c.id !== currentComponent.id);
+      const updatedComponent = { ...components[index] };
 
       if (currentComponent.name === "main_frame" && img) {
-        components[index].image = img || currentComponent.image;
+        updatedComponent.image = img || currentComponent.image;
       }
 
       if (currentComponent.name !== "main_frame") {
-        components[index].left = left || currentComponent.left;
-        components[index].top = top || currentComponent.top;
-        components[index].opacity = opacity || currentComponent.opacity;
+        if (left !== "") updatedComponent.left = left;
+        if (top !== "") updatedComponent.top = top;
+        if (opacity !== "") updatedComponent.opacity = opacity;
+        if (zIndex !== "") updatedComponent.z_index = zIndex;
       }
 
       if (currentComponent.name !== "text") {
-        components[index].width = width || currentComponent.width;
-        components[index].height = height || currentComponent.height;
-        components[index].rotate = rotate || currentComponent.rotate;
+        if (width !== "") updatedComponent.width = width;
+        if (height !== "") updatedComponent.height = height;
+        if (rotate !== "" && rotate !== 0) updatedComponent.rotate = rotate;
       }
 
-      components[index].color = color || currentComponent.color;
-      setComponents([...temp, components[index]]);
+      if (currentComponent.name === "text") {
+        if (padding !== "") updatedComponent.padding = padding;
+        if (font !== "") updatedComponent.font = font;
+        if (weight !== "") updatedComponent.weight = weight;
+        if (text !== "") updatedComponent.title = text;
+      }
+
+      if (color !== "") updatedComponent.color = color;
+
+      setComponents([...temp, updatedComponent]);
+      setCurrentComponent(updatedComponent);
       setLeft("");
       setTop("");
       setColor("");
@@ -238,8 +251,27 @@ const Main = () => {
       setHeight("");
       setRotate(0);
       setOpacity("");
+      setZIndex("");
+      setPadding("");
+      setFont("");
+      setWeight("");
+      setText("");
     }
-  }, [color, img, left, top, width, height, rotate, opacity]);
+  }, [
+    color,
+    img,
+    left,
+    top,
+    width,
+    height,
+    rotate,
+    opacity,
+    zIndex,
+    padding,
+    font,
+    weight,
+    text,
+  ]);
 
   return (
     <div className="min-w-screen h-screen bg-black">
@@ -449,7 +481,7 @@ const Main = () => {
                       </div>
                     )}
                   {currentComponent.name !== "main_frame" && (
-                    <div className="flex gap-6">
+                    <div className="flex gap-6 flex-col">
                       <div className="flex gap-1 justify-start items-start">
                         <span className="text-md w-[70px]">Opacity:</span>
                         <input
@@ -462,6 +494,82 @@ const Main = () => {
                           onChange={opacityHandler}
                         />
                       </div>
+                      <div className="flex gap-1 justify-start items-start">
+                        <span className="text-md w-[70px]">Z-Index:</span>
+                        <input
+                          type="number"
+                          className="w-[65px] border border-gray-700 bg-transparent outline-none px-2 rounded-md py-1 text-sm"
+                          step={1}
+                          value={currentComponent.z_index}
+                          onChange={(e) => {
+                            setZIndex(e.target.value);
+                          }}
+                        />
+                      </div>
+                      {currentComponent.name === "text" && (
+                        <>
+                          <div className="flex gap-1 justify-start items-start">
+                            <span className="text-md w-[70px]">Padding:</span>
+                            <input
+                              type="number"
+                              className="w-[65px] border border-gray-700 bg-transparent outline-none px-2 rounded-md py-1 text-sm"
+                              step={1}
+                              value={currentComponent.padding}
+                              onChange={(e) => {
+                                setPadding(e.target.value);
+                              }}
+                            />
+                          </div>
+                          <div className="flex gap-1 justify-start items-start">
+                            <span className="text-md w-[70px]">Font Size:</span>
+                            <input
+                              type="number"
+                              className="w-[65px] border border-gray-700 bg-transparent outline-none px-2 rounded-md py-1 text-sm"
+                              step={1}
+                              value={currentComponent.font}
+                              onChange={(e) => {
+                                setFont(e.target.value);
+                              }}
+                            />
+                          </div>
+                          <div className="flex gap-1 justify-start items-start">
+                            <span className="text-md w-[70px]">Weight:</span>
+                            <input
+                              type="number"
+                              className="w-[65px] border border-gray-700 bg-transparent outline-none px-2 rounded-md py-1 text-sm"
+                              step={100}
+                              min={100}
+                              max={900}
+                              value={currentComponent.weight}
+                              onChange={(e) => {
+                                setWeight(e.target.value);
+                              }}
+                            />
+                          </div>
+                          <div className="flex gap-2 flex-col justify-start items-start">
+                            <input
+                              type="text"
+                              className="border bordergary700
+                               bg-transparent outline-none p-2 rounded-md"
+                              value={currentComponent.title}
+                              onChange={(e) => {
+                                setCurrentComponent({
+                                  ...currentComponent,
+                                  title: e.target.value,
+                                });
+                              }}
+                            />
+                            <button
+                              onClick={() => {
+                                setText(currentComponent.title);
+                              }}
+                              className="px-4 py-2 bg-purple-500 text-xs text-white rounded-sm"
+                            >
+                              Add Text
+                            </button>
+                          </div>
+                        </>
+                      )}
                     </div>
                   )}
                 </div>

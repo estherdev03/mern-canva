@@ -141,17 +141,17 @@ const CreateComponent = ({ info, currentComponent, removeComponent }) => {
         style={{
           left: info.left + "px",
           top: info.top + "px",
-          z_index: info.z_index,
+          zIndex: info.z_index,
           transform: info.rotate ? `rotate(${info.rotate}deg)` : "rotate(0deg)",
-          padding: info.padding,
           color: info.color,
           opacity: info.opacity,
+          padding: info.padding != null ? `${info.padding}px` : undefined,
         }}
         className="absolute group hover:border-[2px] hover:border-indigo-500"
       >
         <Element id={randValue} info={info} exId="" />
         <h2
-          style={{ fontSize: info.font + "px", fontWeight: info.weight + "px" }}
+          style={{ fontSize: info.font + "px", fontWeight: info.weight }}
           className="w-full h-full"
         >
           {info.title}
