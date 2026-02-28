@@ -16,6 +16,8 @@ import CreateComponent from "../components/CreateComponent";
 import Image from "../components/Image";
 import api from "../utils/api";
 import { useParams } from "react-router-dom";
+import BackgroundImages from "../components/BackgroundImages";
+import InitialImage from "../components/InitialImage";
 
 const Main = () => {
   const { designId } = useParams();
@@ -465,30 +467,18 @@ const Main = () => {
             {/* Images */}
             {state === "initImage" && (
               <div className="h-[88vh] overflow-x-auto flex justify-start items-start scrollbar-hide">
-                <Image addImage={addImage} />
+                <InitialImage addImage={addImage} />
               </div>
             )}
 
             {/* Background */}
             {state === "background" && (
               <div className="h-[88vh] overflow-x-auto flex justify-start items-start scrollbar-hide w-full">
-                <div className="grid grid-cols-2 gap-2 w-full">
-                  {[1, 2, 3, 4, 5].map((img, idx) => (
-                    <div
-                      key={idx}
-                      onClick={() => {
-                        currentComponent && setImg("../../canva.png");
-                      }}
-                      className="w-full h-[90px] overflow-hidden rounded-sm cursor-pointer"
-                    >
-                      <img
-                        className="w-full h-full object-fill"
-                        src="../../canva.png"
-                        alt="placeholder"
-                      />
-                    </div>
-                  ))}
-                </div>
+                <BackgroundImages
+                  type="background"
+                  setImg={setImg}
+                  currentComponent={currentComponent}
+                />
               </div>
             )}
           </div>

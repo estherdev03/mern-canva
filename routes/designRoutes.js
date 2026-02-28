@@ -12,5 +12,7 @@ router.put(
 );
 router.post("/add-user-image", auth, designController.addUserImage);
 router.get("/get-user-image", auth, designController.getUserImage);
+router.get("/get-background-images", auth, designController.getBackgroundImage);
+router.get("/get-design-images", auth, designController.getDesignImage);
 
 module.exports = router;
