@@ -34,7 +34,7 @@ const router = createBrowserRouter([
     element: <CreateDesign />,
   },
   {
-    path: "/design/:id/edit",
+    path: "/design/:designId/edit",
     element: <Main />,
   },
 ]);

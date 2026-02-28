@@ -14,8 +14,12 @@ import MyImages from "../components/MyImages";
 import Project from "../components/Project";
 import CreateComponent from "../components/CreateComponent";
 import Image from "../components/Image";
+import api from "../utils/api";
+import { useParams } from "react-router-dom";
 
 const Main = () => {
+  const { designId } = useParams();
+
   const [state, setState] = useState("");
   const [show, setShow] = useState({ status: true, name: "" });
   const [currentComponent, setCurrentComponent] = useState("");
@@ -263,7 +267,7 @@ const Main = () => {
         if (padding !== "") updatedComponent.padding = padding;
         if (font !== "") updatedComponent.font = font;
         if (weight !== "") updatedComponent.weight = weight;
-        if (text !== "") updatedComponent.text = text;
+        if (text !== "") updatedComponent.title = text;
       }
 
       if (currentComponent.name === "image") {
@@ -304,6 +308,26 @@ const Main = () => {
     text,
     radius,
   ]);
+
+  useEffect(() => {
+    const getDesign = async () => {
+      try {
+        const { data } = await api.get(`/api/user_design/${designId}`);
+        const { design } = data;
+        for (let i = 0; i < design.length; i++) {
+          design[i].setCurrentComponent = (a) => setCurrentComponent(a);
+          design[i].moveElement = moveElement;
+          design[i].resizeElement = resizeElement;
+          design[i].rotateElement = rotateElement;
+          design[i].removeBackground = removeBackground;
+        }
+        setComponents(design);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getDesign();
+  }, [designId]);
 
   return (
     <div className="min-w-screen h-screen bg-black">
@@ -595,7 +619,7 @@ const Main = () => {
                               type="text"
                               className="border bordergary700
                                bg-transparent outline-none p-2 rounded-md"
-                              value={currentComponent.title}
+                              placeholder="Add Your Text"
                               onChange={(e) => {
                                 setCurrentComponent({
                                   ...currentComponent,
@@ -607,7 +631,7 @@ const Main = () => {
                               onClick={() => {
                                 setText(currentComponent.title);
                               }}
-                              className="px-4 py-2 bg-purple-500 text-xs text-white rounded-sm"
+                              className="px-4 py-2 bg-purple-500 text-xs text-white rounded-sm hover:cursor-pointer"
                             >
                               Add Text
                             </button>
