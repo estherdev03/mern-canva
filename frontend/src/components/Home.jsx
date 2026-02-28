@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { Link, useNavigate } from "react-router-dom";
-import { FaTrashAlt } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import api from "../utils/api";
+
+import Item from "./home/Item";
+import toast from "react-hot-toast";
 
 const Home = () => {
+  const [designs, setDesigns] = useState([]);
   const [show, setShow] = useState(false);
   const [state, setState] = useState({
     width: 0,
@@ -26,6 +30,29 @@ const Home = () => {
       },
     });
   };
+
+  const deleteDesign = async (designId) => {
+    try {
+      const { data } = await api.put(`api/delete-user-image/${designId}`);
+      toast.success(data.message);
+      const rest = (await api.get("/api/get-user-designs")).data.designs;
+      setDesigns([...rest]);
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+
+  useEffect(() => {
+    const getUserDesign = async () => {
+      try {
+        const { data } = await api.get("/api/get-user-designs");
+        setDesigns(data.designs);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getUserDesign();
+  }, []);
 
   const responsive = {
     superLargeDesktop: {
@@ -109,20 +136,10 @@ const Home = () => {
             itemClass="px-2"
             containerClass="w-full flex"
           >
-            {[1, 2, 3, 4, 5, 6, 7, 8].map(() => (
-              <div className="relative group h-[170px]">
-                <Link className="w-full h-full block bg-slate-100 p-4 rounded-md">
-                  <img
-                    src="/canva.png"
-                    alt="canva placeholder"
-                    className="w-full h-full rounded-md overflow-hidden"
-                  />
-                </Link>
-                <div className="absolute hidden cursor-pointer top-2 right-4 text-red-500 transition-all duration-500 group-hover:block">
-                  <FaTrashAlt />
-                </div>
-              </div>
-            ))}
+            {designs.length > 0 &&
+              designs.map((d, i) => (
+                <Item key={i} design={d} deleteDesign={deleteDesign} />
+              ))}
           </Carousel>
         </div>
       </div>

@@ -37,7 +37,7 @@ const Layout = () => {
                 />
               </div>
               <div
-                className={`absolute border border-gray-700 top-[60px] right-0 w-[250px] bg-[#313030] p-3  transition duration-500 ${show ? "visible opacity-100" : "invisible opacity-30"}`}
+                className={`absolute border border-gray-700 top-[60px] right-0 w-[250px] bg-[#313030] p-3  transition duration-500 ${show ? "visible opacity-100 z-100" : "invisible opacity-30"}`}
               >
                 <div className="px-2 py-2 flex justify-start gap-5 items-center">
                   <img

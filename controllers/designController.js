@@ -70,7 +70,7 @@ class DesignController {
           image_url: url,
           components: components,
         });
-        return res.status(200).json({ message: "Image saved successfully." });
+        return res.status(200).json({ message: "Save image successfully." });
       } else {
         return res.status(400).json({ message: "Design not found." });
       }
@@ -98,7 +98,7 @@ class DesignController {
       });
       return res
         .status(201)
-        .json({ message: "Image added successfully.", userImage });
+        .json({ message: "Add image successfully.", userImage });
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }
@@ -133,6 +133,30 @@ class DesignController {
       return res.status(200).json({
         images,
       });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  };
+
+  getUserDesigns = async (req, res) => {
+    const { _id } = req.userInfo;
+    try {
+      const designs = await Design.find({ user_id: new ObjectId(_id) }).sort({
+        createdAt: -1,
+      });
+      return res.status(200).json({
+        designs,
+      });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  };
+
+  deleteUserImage = async (req, res) => {
+    const { designId } = req.params;
+    try {
+      await Design.findByIdAndDelete(designId);
+      return res.status(200).json({ message: "Delete design successfully." });
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }

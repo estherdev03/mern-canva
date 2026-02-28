@@ -83,7 +83,7 @@ const Index = () => {
         </div>
       </div>
       <div className="w-full h-full justify-center items-center p-4 text-center">
-        <div className="py-[170px] flex justify-center items-center flex-col gap-6">
+        <div className="py-[150px] flex justify-center items-center flex-col gap-6">
           <h2 className="text-[#c7c5c5] text-3xl sm:text-4xl font-bold ">
             What will you design today?
           </h2>

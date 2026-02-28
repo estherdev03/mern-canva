@@ -314,7 +314,7 @@ const Main = () => {
   useEffect(() => {
     const getDesign = async () => {
       try {
-        const { data } = await api.get(`/api/user_design/${designId}`);
+        const { data } = await api.get(`/api/user-design/${designId}`);
         const { design } = data;
         for (let i = 0; i < design.length; i++) {
           design[i].setCurrentComponent = (a) => setCurrentComponent(a);
@@ -462,7 +462,9 @@ const Main = () => {
                 </div>
               </div>
             )}
-            {state === "projects" && <Project />}
+            {state === "projects" && (
+              <Project designId={designId} type="main" />
+            )}
 
             {/* Images */}
             {state === "initImage" && (
