@@ -60,7 +60,7 @@ const Home = () => {
         </button>
         <form
           className={`absolute top-16 right-3 gap-3 bg-[#252627] w-[250px] p-4 text-white ${show ? "visible opacity-100" : "invisible"} transition duration-500`}
-          action=""
+          onSubmit={createDesign}
         >
           <div className="grid grid-cols-2 pb-4 gap-3">
             <div className="flex gap-2 justify-center items-start flex-col">
@@ -86,10 +86,7 @@ const Home = () => {
               />
             </div>
           </div>
-          <button
-            onClick={createDesign}
-            className="px-4 py-2 text-[15px] overflow-hidden text-center bg-purple-400 text-white rounded-sm font-medium hover:bg-purple-500 w-full hover:cursor-pointer"
-          >
+          <button className="px-4 py-2 text-[15px] overflow-hidden text-center bg-purple-400 text-white rounded-sm font-medium hover:bg-purple-500 w-full hover:cursor-pointer">
             Create new design
           </button>
         </form>

@@ -2,10 +2,8 @@ import { useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import api from "../utils/api";
-// import { useNavigate } from "react-router-dom";
 
 const SigninForm = ({ inputHandler, state, setState }) => {
-  // const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const userLogin = async (e) => {
     e.preventDefault();
@@ -18,7 +16,6 @@ const SigninForm = ({ inputHandler, state, setState }) => {
         email: "",
         password: "",
       });
-      // navigate("/");
       window.location.href = "/";
     } catch (error) {
       setLoading(false);
