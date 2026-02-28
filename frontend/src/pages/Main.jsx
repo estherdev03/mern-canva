@@ -331,7 +331,7 @@ const Main = () => {
 
   return (
     <div className="min-w-screen h-screen bg-black">
-      <Header />
+      <Header components={components} designId={designId} />
       <div className="flex h-[calc(100%-60px)] w-screen">
         {/* Sidebar */}
         <div className="w-[80px] bg-[#18191b] z-50 h-full text-gray-400 overflow-y-auto">
