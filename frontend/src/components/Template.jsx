@@ -1,7 +1,12 @@
 import React from "react";
+import TemplateDesign from "./main/TemplateDesign";
 
 const Template = () => {
-  return <div className="text-white">Template</div>;
+  return (
+    <div>
+      <TemplateDesign />
+    </div>
+  );
 };
 
 export default Template;

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import api from "../utils/api";
+import toast from "react-hot-toast";
 
 const SigninForm = ({ inputHandler, state, setState }) => {
   const [loading, setLoading] = useState(false);
@@ -17,9 +18,10 @@ const SigninForm = ({ inputHandler, state, setState }) => {
         password: "",
       });
       window.location.href = "/";
+      toast.success(data.message);
     } catch (error) {
       setLoading(false);
-      console.log(error.response);
+      toast.error(error.response.data.message);
     }
   };
   return (

@@ -15,6 +15,12 @@ router.get("/get-user-image", auth, designController.getUserImage);
 router.get("/get-background-images", auth, designController.getBackgroundImage);
 router.get("/get-design-images", auth, designController.getDesignImage);
 router.get("/get-user-designs", auth, designController.getUserDesigns);
+router.get("/get-templates", auth, designController.getTemplates);
+router.get(
+  "/add-user-template/:templateId",
+  auth,
+  designController.addUserTemplate,
+);
 router.put(
   "/delete-user-image/:designId",
   auth,

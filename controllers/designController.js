@@ -4,6 +4,7 @@ const Design = require("../models/designModel");
 const UserImage = require("../models/userImageModel");
 const DesignImage = require("../models/designImageModel");
 const BackgroundImage = require("../models/backgroundImageModel");
+const Template = require("../models/templateModel");
 const {
   mongo: { ObjectId },
 } = require("mongoose");
@@ -157,6 +158,31 @@ class DesignController {
     try {
       await Design.findByIdAndDelete(designId);
       return res.status(200).json({ message: "Delete design successfully." });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  };
+
+  getTemplates = async (req, res) => {
+    try {
+      const templates = await Template.find({}).sort({ createdAt: -1 });
+      return res.status(200).json({ templates });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  };
+
+  addUserTemplate = async (req, res) => {
+    const { _id } = req.userInfo;
+    const { templateId } = req.params;
+    try {
+      const template = await Template.findById(templateId);
+      const design = await Design.create({
+        components: template.components,
+        user_id: _id,
+        image_url: template.image_url,
+      });
+      return res.status(200).json({ design });
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }

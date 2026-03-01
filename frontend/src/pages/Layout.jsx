@@ -1,12 +1,45 @@
-import React, { useState } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { IoMdHome } from "react-icons/io";
 import { FaFolderOpen } from "react-icons/fa";
 import { HiTemplate } from "react-icons/hi";
+import api from "../utils/api";
+import toast from "react-hot-toast";
 
 const Layout = () => {
   const [show, setShow] = useState(false);
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const [user, setUser] = useState("");
+
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const { data } = await api.get("/api/user");
+        setUser(data.user);
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
+    };
+    getUser();
+  }, []);
+
+  const createDesign = (e) => {
+    e.preventDefault();
+    navigate("/design/create", {
+      state: {
+        type: "create",
+        width: 500,
+        height: 400,
+      },
+    });
+  };
+
+  const logout = () => {
+    localStorage.removeItem("canva_token");
+    window.location.href = "/";
+  };
+
   return (
     <div className="bg-[#18191b] min-h-screen w-full flex flex-col">
       {/* Header */}
@@ -21,7 +54,10 @@ const Layout = () => {
               />
             </div>
             <div className="flex gap-4 justify-center items-center relative">
-              <button className="py-2 px-3 overflow-hidden text-center bg-[#8b3dff] rounded-md font-semibold text-white hover:cursor-pointer hover:bg-[#6d3bb8]">
+              <button
+                onClick={createDesign}
+                className="py-2 px-3 overflow-hidden text-center bg-[#8b3dff] rounded-md font-semibold text-white hover:cursor-pointer hover:bg-[#6d3bb8]"
+              >
                 Create a design
               </button>
               <div
@@ -32,8 +68,8 @@ const Layout = () => {
               >
                 <img
                   className="w-[48px] h-[45px] rounded-full"
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJo1MiPQp3IIdp54vvRDXlhbqlhXW9v1v6kw&s"
-                  alt="canva logo"
+                  src="https://res.cloudinary.com/devllaqhm/image/upload/v1772358750/istockphoto-2151669184-612x612_bjkchv.jpg"
+                  alt="avatar placeholder"
                 />
               </div>
               <div
@@ -42,26 +78,24 @@ const Layout = () => {
                 <div className="px-2 py-2 flex justify-start gap-5 items-center">
                   <img
                     className="w-[40px] h-[40px] rounded-full"
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJo1MiPQp3IIdp54vvRDXlhbqlhXW9v1v6kw&s"
-                    alt="canva logo"
+                    src="https://res.cloudinary.com/devllaqhm/image/upload/v1772358750/istockphoto-2151669184-612x612_bjkchv.jpg"
+                    alt="avatar placeholder"
                   />
                   <div className="flex justify-center flex-col items-start ">
-                    <span className="text-[#e0dddd] font-bold">Ariyan</span>
-                    <span className="text-[#e0dddd] text-sm">
-                      ariyan@gmail.com
+                    <span className="text-[#e0dddd] font-bold">
+                      {user.name}
                     </span>
+                    <span className="text-[#e0dddd] text-sm">{user.email}</span>
                   </div>
                 </div>
                 <ul className="text-[#e0dddd] font-semibold">
                   <li>
-                    <Link className="p-2 cursor-pointer hover:text-blue-300">
-                      <span>Setting</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="p-2 cursor-pointer hover:text-blue-300">
+                    <div
+                      onClick={logout}
+                      className="p-2 cursor-pointer hover:text-blue-300"
+                    >
                       <span>Logout</span>
-                    </Link>
+                    </div>
                   </li>
                 </ul>
               </div>
@@ -76,11 +110,11 @@ const Layout = () => {
           <div className=" flex flex-col items-center gap-3 mb-3 md:flex-row">
             <img
               className="w-[48px] h-[48px] rounded-full"
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJo1MiPQp3IIdp54vvRDXlhbqlhXW9v1v6kw&s"
-              alt="canva logo"
+              src="https://res.cloudinary.com/devllaqhm/image/upload/v1772358750/istockphoto-2151669184-612x612_bjkchv.jpg"
+              alt="avatar placeholder"
             />
             <div className="flex justify-center items-center text-center flex-col *:text-[#e0dddd]">
-              <span className="font-bold text-sm md:text-lg">Kazi Ariyan</span>
+              <span className="font-bold text-sm md:text-lg">{user.name}</span>
               <span className="bg-red-500 rounded-md px-2 text-[10px] font-semibold text-center mt-1 ">
                 Free
               </span>

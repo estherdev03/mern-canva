@@ -34,7 +34,7 @@ class AuthController {
         );
         return res
           .status(201)
-          .json({ message: "User signed up successfully.", token });
+          .json({ message: "Sign up user successfully.", token });
       }
     } catch (error) {
       console.log(error);
@@ -72,6 +72,16 @@ class AuthController {
     } catch (error) {
       console.log(error.message);
       return res.status(500).json({ message: "Internal Server Error." });
+    }
+  };
+
+  getUserById = async (req, res) => {
+    const { _id } = req.userInfo;
+    try {
+      const user = await User.findById(_id);
+      return res.status(200).json({ user });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
     }
   };
 }
