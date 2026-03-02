@@ -25,9 +25,9 @@ const SigninForm = ({ inputHandler, state, setState }) => {
     }
   };
   return (
-    <form onSubmit={userLogin}>
-      <div className="flex flex-col gap-2 mb-3 text-white ">
-        <label htmlFor="email" className="font-semibold">
+    <form onSubmit={userLogin} className="space-y-5">
+      <div className="flex flex-col gap-3 mb-2 text-slate-200 text-sm">
+        <label htmlFor="email" className="font-medium">
           Email
         </label>
         <input
@@ -37,42 +37,42 @@ const SigninForm = ({ inputHandler, state, setState }) => {
           placeholder="johndoe@gmail.com"
           onChange={inputHandler}
           value={state.email}
-          className="px-3 py-2 rounded-md outline-none border border-[#5c5c5e] focus:border-2 bg-transparent"
+          className="px-3 py-2 rounded-md outline-none border border-slate-700 bg-[#020617] placeholder:text-slate-500 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/60"
         />
-        <label htmlFor="password" className="font-semibold">
+        <label htmlFor="password" className="font-medium">
           Password
         </label>
         <input
           type="password"
           name="password"
           id="password"
-          placeholder="*****************"
+          placeholder="••••••••••"
           onChange={inputHandler}
           value={state.password}
-          className="px-3 py-2 rounded-md outline-none border border-[#5c5c5e] focus:border-2 bg-transparent"
+          className="px-3 py-2 rounded-md outline-none border border-slate-700 bg-[#020617] placeholder:text-slate-500 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/60"
         />
       </div>
       <div>
         <button
           disabled={loading}
-          className="px-3 py-2 rounded-md bg-purple-500 w-full outline-none hover:bg-purple-600 text-white disabled:cursor-not-allowed hover:cursor-pointer"
+          className="px-3 py-2 rounded-md bg-indigo-500 w-full outline-none hover:bg-indigo-400 text-white text-sm font-medium disabled:cursor-not-allowed disabled:opacity-60 hover:cursor-pointer transition-colors"
         >
-          {loading ? "Loading..." : "Sign in"}
+          {loading ? "Signing in..." : "Sign in"}
         </button>
       </div>
-      <div className="flex py-4 justify-betwen items-center px-3">
-        <div className="w-[45%] h-[1px] bg-slate-500 mr-2"></div>
-        <span className="w-[6%] text-center flex pb-1 text-white">Or</span>
-        <div className="w-[45%] h-[1px] px-2 bg-slate-500 ml-2"></div>
+      <div className="flex py-4 justify-between items-center px-1 text-[11px] text-slate-500">
+        <div className="w-[40%] h-px bg-slate-700/70" />
+        <span className="w-[20%] text-center">Or continue with</span>
+        <div className="w-[40%] h-px bg-slate-700/70" />
       </div>
-      <div className="flex flex-col gap-2">
-        <button className="px-3 py-2 flex justify-center items-center gap-2 rounded-md bg-red-500 w-full outline-none hover:bg-red-600 text-white">
+      <div className="flex flex-col gap-2 text-sm">
+        <button className="px-3 py-2 flex justify-center items-center gap-2 rounded-md border border-slate-700 bg-[#020617] hover:bg-slate-900 w-full outline-none text-slate-100 transition-colors">
           <FaGoogle className="text-center" />
-          <span>Login with Gmail</span>
+          <span>Google</span>
         </button>
-        <button className="px-3 py-2 flex justify-center items-center gap-2 rounded-md bg-blue-500 w-full outline-none hover:bg-blue-600 text-white">
+        <button className="px-3 py-2 flex justify-center items-center gap-2 rounded-md border border-slate-700 bg-[#020617] hover:bg-slate-900 w-full outline-none text-slate-100 transition-colors">
           <FaFacebook className="text-center" />
-          <span>Login with Facebook</span>
+          <span>Facebook</span>
         </button>
       </div>
     </form>

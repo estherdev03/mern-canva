@@ -15,22 +15,25 @@ const Index = () => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
   return (
-    <div className="bg-[#18191b] min-h-screen w-full">
+    <div className="min-h-screen w-full bg-gradient-to-br from-[#050816] via-[#020617] to-[#020617] text-slate-100 flex flex-col">
+      {/* Auth modal */}
       <div
-        className={`w-screen ${show ? "visible" : "invisible"} transition-all h-screen fixed bg-[rgba(31,32,34,0.55)] flex justify-center items-center`}
+        className={`fixed inset-0 flex justify-center items-center transition-all ${show ? "visible opacity-100" : "invisible opacity-0"} bg-black/50 backdrop-blur-sm`}
       >
-        <div className="w-85 bg-[#323335] m-auto px-6 py-4 rounded-md relative">
+        <div className="w-full max-w-md bg-[#020617]/95 border border-slate-800 shadow-2xl rounded-2xl px-6 py-6 relative">
           <div
             onClick={() => {
               setShow(false);
             }}
-            className="absolute right-4 top-4 text-2xl cursor-pointer text-white"
+            className="absolute right-4 top-4 text-xl cursor-pointer text-slate-400 hover:text-slate-200"
           >
             <IoClose />
           </div>
           {type === "sign in" ? (
             <>
-              <h2 className="mb-2 text-white text-lg text-center">Sign in</h2>
+              <h2 className="mb-4 text-slate-100 text-xl font-semibold text-center">
+                Sign in
+              </h2>
               <SigninForm
                 inputHandler={inputHandler}
                 state={state}
@@ -39,7 +42,9 @@ const Index = () => {
             </>
           ) : (
             <>
-              <h2 className="mb-2 text-white text-lg text-center">Sign up</h2>
+              <h2 className="mb-4 text-slate-100 text-xl font-semibold text-center">
+                Sign up
+              </h2>
               <SignupForm
                 inputHandler={inputHandler}
                 state={state}
@@ -49,55 +54,59 @@ const Index = () => {
           )}
         </div>
       </div>
-      <div className="bg-[#212223] shadow-md">
-        <div className="w-[93%] m-auto py-3 ">
-          <div className="flex justify-between items-center">
-            <div className="w-[80px] h-[48px]">
+      {/* Top nav */}
+      <div className="h-[64px] border-b border-slate-800 bg-gradient-to-r from-[#050816] via-[#020617] to-[#020617]">
+        <div className="max-w-6xl mx-auto h-full px-4 sm:px-6 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="h-8 w-auto flex items-center">
               <img
-                className="w-full h-full"
+                className="h-full w-auto"
                 src="https://static.canva.com/web/images/8439b51bb7a19f6e65ce1064bc37c197.svg"
                 alt="canva logo"
               />
             </div>
-            <div className="flex gap-4 ">
-              <button
-                onClick={() => {
-                  setType("sign in");
-                  setShow(true);
-                }}
-                className="py-2 w-20 text-center bg-blue-600  transition-all hover:bg-blue-700 rounded-[5px] font-semibold hover:cursor-pointer text-white"
-              >
-                Sign in
-              </button>
-              <button
-                onClick={() => {
-                  setType("sign up");
-                  setShow(true);
-                }}
-                className="py-2 w-20 text-center bg-red-600  transition-all hover:bg-red-700 rounded-[5px] font-semibold hover:cursor-pointer text-white"
-              >
-                Sign up
-              </button>
-            </div>
+          </div>
+          <div className="flex gap-2">
+            <button
+              onClick={() => {
+                setType("sign in");
+                setShow(true);
+              }}
+              className="px-4 py-2 text-xs sm:text-sm rounded-full border border-slate-700 text-slate-200 hover:border-indigo-500 hover:text-white transition-colors hover:cursor-pointer"
+            >
+              Sign in
+            </button>
+            <button
+              onClick={() => {
+                setType("sign up");
+                setShow(true);
+              }}
+              className="px-4 py-2 text-xs sm:text-sm rounded-full border border-slate-700 text-slate-200 hover:border-indigo-500 hover:text-white transition-colors hover:cursor-pointer"
+            >
+              Sign up
+            </button>
           </div>
         </div>
       </div>
-      <div className="w-full h-full justify-center items-center p-4 text-center">
-        <div className="py-[150px] flex justify-center items-center flex-col gap-6">
-          <h2 className="text-[#c7c5c5] text-3xl sm:text-4xl font-bold ">
+
+      {/* Hero */}
+      <div className="flex-1 w-full flex justify-center items-center px-4">
+        <div className="max-w-3xl text-center py-20 space-y-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-slate-50">
             What will you design today?
           </h2>
-          <span className="text-[#aca9a9] text-lg sm:text-2xl font-semibold ">
-            Canva makes it easy to create and share professional designs
-          </span>
+          <p className="text-sm sm:text-base md:text-lg text-slate-400">
+            Create, edit, and share beautiful designs in a fast, focused canvas
+            experience inspired by Canva.
+          </p>
           <button
             onClick={() => {
               setType("sign up");
               setShow(true);
             }}
-            className="py-2 w-50 text-center bg-blue-600  transition-all hover:bg-blue-700 rounded-[5px] font-semibold hover:cursor-pointer text-white"
+            className="mt-4 inline-flex items-center justify-center px-6 py-3 rounded-full bg-indigo-500 hover:bg-indigo-400 text-sm sm:text-base font-semibold text-white shadow-lg shadow-indigo-500/25 transition-colors"
           >
-            Sign up for Free
+            Get started for free
           </button>
         </div>
       </div>

@@ -332,14 +332,14 @@ const Main = () => {
   }, [designId]);
 
   return (
-    <div className="min-w-screen h-screen bg-black">
+    <div className="min-h-screen w-screen bg-gradient-to-br from-[#050816] via-[#020617] to-[#020617] text-slate-100 flex flex-col">
       <Header components={components} designId={designId} />
-      <div className="flex h-[calc(100%-60px)] w-screen">
+      <div className="flex h-[calc(100%-60px)] w-full overflow-hidden">
         {/* Sidebar */}
-        <div className="w-[80px] bg-[#18191b] z-50 h-full text-gray-400 overflow-y-auto">
+        <div className="w-[80px] bg-[#050816] border-r border-slate-800 z-30 h-full text-slate-400 overflow-y-auto flex flex-col py-4 space-y-1">
           <div
             onClick={() => setElements("design", "design")}
-            className={`w-full h-[65px] cursor-pointer flex justify-center flex-col items-center gap-1 transition-all hover:text-gray-100 hover:bg-[#252627] ${show.name === "design" ? "bg-[#252627]" : ""}`}
+            className={`w-full h-[65px] cursor-pointer flex justify-center flex-col items-center gap-1 text-[11px] tracking-wide transition-colors hover:text-slate-100 hover:bg-[#111827] ${show.name === "design" ? "bg-[#111827] text-slate-100 border-l-2 border-indigo-500" : ""}`}
           >
             <span>
               <LuLayoutTemplate />
@@ -347,7 +347,7 @@ const Main = () => {
             <span className="text-xs font-medium">Design</span>
           </div>
           <div
-            className={`w-full h-[65px] cursor-pointer flex justify-center flex-col items-center gap-1 transition-all hover:text-gray-100 hover:bg-[#252627] ${show.name === "shape" ? "bg-[#252627]" : ""}`}
+            className={`w-full h-[65px] cursor-pointer flex justify-center flex-col items-center gap-1 text-[11px] tracking-wide transition-colors hover:text-slate-100 hover:bg-[#111827] ${show.name === "shape" ? "bg-[#111827] text-slate-100 border-l-2 border-indigo-500" : ""}`}
             onClick={() => setElements("shape", "shape")}
           >
             <span>
@@ -356,7 +356,7 @@ const Main = () => {
             <span className="text-xs font-medium">Shapes</span>
           </div>
           <div
-            className={`w-full h-[65px] cursor-pointer flex justify-center flex-col items-center gap-1 transition-all hover:text-gray-100 hover:bg-[#252627] ${show.name === "uploadImage" ? "bg-[#252627]" : ""}`}
+            className={`w-full h-[65px] cursor-pointer flex justify-center flex-col items-center gap-1 text-[11px] tracking-wide transition-colors hover:text-slate-100 hover:bg-[#111827] ${show.name === "uploadImage" ? "bg-[#111827] text-slate-100 border-l-2 border-indigo-500" : ""}`}
             onClick={() => setElements("image", "uploadImage")}
           >
             <span>
@@ -365,7 +365,7 @@ const Main = () => {
             <span className="text-xs font-medium">Upload</span>
           </div>
           <div
-            className={`w-full h-[65px] cursor-pointer flex justify-center flex-col items-center gap-1 transition-all hover:text-gray-100 hover:bg-[#252627] ${show.name === "text" ? "bg-[#252627]" : ""}`}
+            className={`w-full h-[65px] cursor-pointer flex justify-center flex-col items-center gap-1 text-[11px] tracking-wide transition-colors hover:text-slate-100 hover:bg-[#111827] ${show.name === "text" ? "bg-[#111827] text-slate-100 border-l-2 border-indigo-500" : ""}`}
             onClick={() => setElements("text", "text")}
           >
             <span>
@@ -374,7 +374,7 @@ const Main = () => {
             <span className="text-xs font-medium">Text</span>
           </div>
           <div
-            className={`w-full h-[65px] cursor-pointer flex justify-center flex-col items-center gap-1 transition-all hover:text-gray-100 hover:bg-[#252627] ${show.name === "projects" ? "bg-[#252627]" : ""}`}
+            className={`w-full h-[65px] cursor-pointer flex justify-center flex-col items-center gap-1 text-[11px] tracking-wide transition-colors hover:text-slate-100 hover:bg-[#111827] ${show.name === "projects" ? "bg-[#111827] text-slate-100 border-l-2 border-indigo-500" : ""}`}
             onClick={() => setElements("projects", "projects")}
           >
             <span>
@@ -383,7 +383,7 @@ const Main = () => {
             <span className="text-xs font-medium">Projects</span>
           </div>
           <div
-            className={`w-full h-[65px] cursor-pointer flex justify-center flex-col items-center gap-1 transition-all hover:text-gray-100 hover:bg-[#252627] ${show.name === "images" ? "bg-[#252627]" : ""}`}
+            className={`w-full h-[65px] cursor-pointer flex justify-center flex-col items-center gap-1 text-[11px] tracking-wide transition-colors hover:text-slate-100 hover:bg-[#111827] ${show.name === "images" ? "bg-[#111827] text-slate-100 border-l-2 border-indigo-500" : ""}`}
             onClick={() => setElements("initImage", "images")}
           >
             <span>
@@ -392,7 +392,7 @@ const Main = () => {
             <span className="text-xs font-medium">Images</span>
           </div>
           <div
-            className={`w-full h-[65px] cursor-pointer flex justify-center flex-col items-center gap-1 transition-all hover:text-gray-100 hover:bg-[#252627] ${show.name === "background" ? "bg-[#252627]" : ""}`}
+            className={`w-full h-[65px] cursor-pointer flex justify-center flex-col items-center gap-1 text-[11px] tracking-wide transition-colors hover:text-slate-100 hover:bg-[#111827] ${show.name === "background" ? "bg-[#111827] text-slate-100 border-l-2 border-indigo-500" : ""}`}
             onClick={() => setElements("background", "background")}
           >
             <span>
@@ -403,15 +403,15 @@ const Main = () => {
         </div>
 
         {/* Main content */}
-        <div className="h-full w-[calc(100%-75px)]">
+        <div className="h-full w-[calc(100%-75px)] max-w-7xl mx-auto flex">
           <div
-            className={`${show.status ? "p-0 -left-[350px]" : "px-8 left-[75px] py-5"} bg-[#252627] h-full fixed transition-all w-[350px] z-30 duration-700`}
+            className={`${show.status ? "p-0 -left-[400px]" : "px-6 left-[75px] py-5"} bg-[#020617]/95 border-r border-slate-800 h-full fixed transition-all w-[350px] z-30 duration-700 shadow-2xl`}
           >
             <div
               onClick={() => {
                 setShow({ name: "", status: true });
               }}
-              className="flex absolute justify-center items-center bg-[#252627] w-[20px] -right-2 text-slate-300 top-[40%] cursor-pointer h-[100px] rounded-full"
+              className="flex absolute justify-center items-center bg-[#020617] border border-slate-700 w-[22px] -right-3 text-slate-300 top-[40%] cursor-pointer h-[96px] rounded-full shadow-md"
             >
               <MdOutlineKeyboardArrowLeft />
             </div>
@@ -425,15 +425,15 @@ const Main = () => {
 
             {/* Shape */}
             {state === "shape" && (
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-3 gap-3">
                 <div
-                  className="h-[90px] bg-[#3c3c3d] cursor-pointer"
+                  className="h-[90px] bg-[#1f2937] cursor-pointer rounded-md border border-slate-700/80 hover:border-indigo-500/70 transition-colors"
                   onClick={() => {
                     createShape("shape", "rect");
                   }}
                 ></div>
                 <div
-                  className="h-[90px] bg-[#3c3c3d] cursor-pointer rounded-full"
+                  className="h-[90px] bg-[#1f2937] cursor-pointer rounded-full border border-slate-700/80 hover:border-indigo-500/70 transition-colors"
                   onClick={() => {
                     createShape("shape", "circle");
                   }}
@@ -443,7 +443,7 @@ const Main = () => {
                     createShape("shape", "triangle");
                   }}
                   style={{ clipPath: "polygon(50% 0, 100% 100%, 0 100%)" }}
-                  className="h-[90px] bg-[#3c3c3d] cursor-pointer "
+                  className="h-[90px] bg-[#1f2937] cursor-pointer border border-slate-700/80 hover:border-indigo-500/70 transition-colors rounded-md"
                 ></div>
               </div>
             )}
@@ -510,13 +510,21 @@ const Main = () => {
             </div>
 
             {currentComponent && (
-              <div className="h-full w-[250px] text-gray-300 bg-[#252627] px-3 py-2">
-                <div className="flex gap-6 flex-col items-start h-full px-3 justify-start">
-                  <div className="flex gap-4 justify-start items-start mt-4">
-                    <span>Color: </span>
+              <div className="h-full w-[250px] text-slate-200 bg-[#020617]/95 border-l border-slate-800 px-4 py-4">
+                <div className="flex flex-col gap-6 items-stretch h-full">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-sm font-semibold tracking-wide text-slate-100">
+                      Properties
+                    </h3>
+                    <span className="text-[11px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 capitalize">
+                      {currentComponent.name}
+                    </span>
+                  </div>
+                  <div className="flex gap-3 justify-start items-center">
+                    <span className="text-sm min-w-[52px]">Color</span>
                     <label
                       htmlFor="color"
-                      className="w-[30px] h-[30px] cursor-pointer rounded-sm"
+                      className="w-[30px] h-[30px] cursor-pointer rounded-md ring-2 ring-slate-700"
                       style={{
                         background: ` ${
                           currentComponent.color &&
@@ -543,12 +551,14 @@ const Main = () => {
                       </div>
                     )}
                   {currentComponent.name !== "main_frame" && (
-                    <div className="flex gap-6 flex-col">
-                      <div className="flex gap-1 justify-start items-start">
-                        <span className="text-md w-[70px]">Opacity:</span>
+                    <div className="flex gap-5 flex-col text-sm">
+                      <div className="flex gap-2 justify-between items-center">
+                        <span className="text-sm w-[70px] text-slate-300">
+                          Opacity
+                        </span>
                         <input
                           type="number"
-                          className="w-[65px] border border-gray-700 bg-transparent outline-none px-2 rounded-md py-1 text-sm"
+                          className="w-[80px] border border-slate-700 bg-transparent outline-none px-2 rounded-md py-1 text-xs focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/60"
                           step={0.1}
                           min={0.1}
                           max={1}
@@ -556,11 +566,13 @@ const Main = () => {
                           onChange={opacityHandler}
                         />
                       </div>
-                      <div className="flex gap-1 justify-start items-start">
-                        <span className="text-md w-[70px]">Z-Index:</span>
+                      <div className="flex gap-2 justify-between items-center">
+                        <span className="text-sm w-[70px] text-slate-300">
+                          Z-Index
+                        </span>
                         <input
                           type="number"
-                          className="w-[65px] border border-gray-700 bg-transparent outline-none px-2 rounded-md py-1 text-sm"
+                          className="w-[80px] border border-slate-700 bg-transparent outline-none px-2 rounded-md py-1 text-xs focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/60"
                           step={1}
                           value={currentComponent.z_index}
                           onChange={(e) => {
@@ -570,11 +582,13 @@ const Main = () => {
                       </div>
                       {currentComponent.name === "text" && (
                         <>
-                          <div className="flex gap-1 justify-start items-start">
-                            <span className="text-md w-[70px]">Padding:</span>
+                          <div className="flex gap-2 justify-between items-center">
+                            <span className="text-sm w-[70px] text-slate-300">
+                              Padding
+                            </span>
                             <input
                               type="number"
-                              className="w-[65px] border border-gray-700 bg-transparent outline-none px-2 rounded-md py-1 text-sm"
+                              className="w-[80px] border border-slate-700 bg-transparent outline-none px-2 rounded-md py-1 text-xs focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/60"
                               step={1}
                               value={currentComponent.padding}
                               onChange={(e) => {
@@ -582,11 +596,13 @@ const Main = () => {
                               }}
                             />
                           </div>
-                          <div className="flex gap-1 justify-start items-start">
-                            <span className="text-md w-[70px]">Font Size:</span>
+                          <div className="flex gap-2 justify-between items-center">
+                            <span className="text-sm w-[70px] text-slate-300">
+                              Font Size
+                            </span>
                             <input
                               type="number"
-                              className="w-[65px] border border-gray-700 bg-transparent outline-none px-2 rounded-md py-1 text-sm"
+                              className="w-[80px] border border-slate-700 bg-transparent outline-none px-2 rounded-md py-1 text-xs focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/60"
                               step={1}
                               value={currentComponent.font}
                               onChange={(e) => {
@@ -594,11 +610,13 @@ const Main = () => {
                               }}
                             />
                           </div>
-                          <div className="flex gap-1 justify-start items-start">
-                            <span className="text-md w-[70px]">Weight:</span>
+                          <div className="flex gap-2 justify-between items-center">
+                            <span className="text-sm w-[70px] text-slate-300">
+                              Weight
+                            </span>
                             <input
                               type="number"
-                              className="w-[65px] border border-gray-700 bg-transparent outline-none px-2 rounded-md py-1 text-sm"
+                              className="w-[80px] border border-slate-700 bg-transparent outline-none px-2 rounded-md py-1 text-xs focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/60"
                               step={100}
                               min={100}
                               max={900}
@@ -608,11 +626,10 @@ const Main = () => {
                               }}
                             />
                           </div>
-                          <div className="flex gap-2 flex-col justify-start items-start">
+                          <div className="flex gap-2 flex-col justify-start items-stretch">
                             <input
                               type="text"
-                              className="border bordergary700
-                               bg-transparent outline-none p-2 rounded-md"
+                              className="w-full border border-slate-700 bg-transparent outline-none px-2 py-2 rounded-md text-xs placeholder:text-slate-500 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/60"
                               placeholder="Add Your Text"
                               onChange={(e) => {
                                 setCurrentComponent({
@@ -625,19 +642,21 @@ const Main = () => {
                               onClick={() => {
                                 setText(currentComponent.title);
                               }}
-                              className="px-4 py-2 bg-purple-500 text-xs text-white rounded-sm hover:cursor-pointer"
+                              className="px-4 py-2 bg-indigo-500 text-xs font-medium text-white rounded-md hover:bg-indigo-400 hover:cursor-pointer transition-colors"
                             >
-                              Add Text
+                              Apply Text
                             </button>
                           </div>
                         </>
                       )}
                       {currentComponent.name === "image" && (
-                        <div className="flex gap-1 justify-start items-start">
-                          <span className="text-md w-[70px]">Radius:</span>
+                        <div className="flex gap-2 justify-between items-center">
+                          <span className="text-sm w-[70px] text-slate-300">
+                            Radius
+                          </span>
                           <input
                             type="number"
-                            className="w-[65px] border border-gray-700 bg-transparent outline-none px-2 rounded-md py-1 text-sm"
+                            className="w-[80px] border border-slate-700 bg-transparent outline-none px-2 rounded-md py-1 text-xs focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/60"
                             step={1}
                             min={0}
                             value={currentComponent.radius}

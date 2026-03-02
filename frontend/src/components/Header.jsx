@@ -50,34 +50,43 @@ const Header = ({ components, designId }) => {
   };
 
   return (
-    <div className="h-[60px] bg-linear-to-r from-[#212122] via-[#27282b] to-[#2a2b2c]">
-      <div className="flex justify-between items-center px-10 text-gray-400 h-full">
-        <Link to="/">
-          <img
-            className="w-full h-full"
-            src="https://static.canva.com/web/images/8439b51bb7a19f6e65ce1064bc37c197.svg"
-            alt="canva logo"
-          />
+    <header className="h-[60px] border-b border-slate-800 bg-gradient-to-r from-[#050816] via-[#020617] to-[#020617] backdrop-blur">
+      <div className="flex items-center justify-between h-full px-4 sm:px-8 lg:px-10 text-slate-200 max-w-7xl mx-auto">
+        <Link to="/" className="flex items-center gap-2">
+          <div className="h-7 w-auto flex items-center">
+            <img
+              className="h-full w-auto"
+              src="https://static.canva.com/web/images/8439b51bb7a19f6e65ce1064bc37c197.svg"
+              alt="canva logo"
+            />
+          </div>
+          <span className="hidden sm:inline text-sm font-medium uppercase tracking-[0.2em] text-slate-400">
+            Editor
+          </span>
         </Link>
-        <span className="text-xl">Canva</span>
-        <div className="flex justify-center items-center gap-2 ">
+
+        <span className="text-sm sm:text-base font-medium text-slate-100">
+          Canva Clone Editor
+        </span>
+
+        <div className="flex items-center gap-2">
           <button
             disabled={loading}
             onClick={saveImage}
-            className="px-3 py-[6px] outline-none bg-[#7482f6] rounded-md text-white cursor-pointer hover:bg-[#5563da] disabled:cursor-not-allowed"
+            className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs sm:text-sm font-medium text-white bg-indigo-500 hover:bg-indigo-400 disabled:opacity-60 disabled:cursor-not-allowed shadow-sm transition-colors hover:cursor-pointer"
           >
-            {loading ? "Loading..." : "Save"}
+            {loading ? "Saving..." : "Save"}
           </button>
 
           <button
             onClick={downloadImage}
-            className="px-3 py-[6px] outline-none bg-[#a955f7] rounded-md text-white cursor-pointer hover:bg-[#9f40f8]"
+            className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs sm:text-sm font-medium text-white bg-fuchsia-500 hover:bg-fuchsia-400 shadow-sm transition-colors hover:cursor-pointer"
           >
             Download
           </button>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 

@@ -52,7 +52,7 @@ const CreateComponent = ({ info, currentComponent, removeComponent }) => {
               e.stopPropagation();
               removeComponent(info.id);
             }}
-            className="px-2 py-1 absolute w-fit bg-white text-[12px] hover:text-red-500 top-0 hidden group-hover:block cursor-pointer rounded-sm"
+            className="px-2 py-1 absolute w-fit text-[12px] bg-white text-black hover:text-red-500 top-0 hidden group-hover:block cursor-pointer rounded-sm"
           >
             <FaTrashAlt />
           </div>
@@ -92,7 +92,7 @@ const CreateComponent = ({ info, currentComponent, removeComponent }) => {
               e.stopPropagation();
               removeComponent(info.id);
             }}
-            className="px-2 py-1 w-fit bg-white absolute text-[12px] hover:text-red-500 top-0 hidden group-hover:block cursor-pointer rounded-sm"
+            className="px-2 py-1 w-fit bg-white absolute text-[12px] text-black hover:text-red-500 top-0 hidden group-hover:block cursor-pointer rounded-sm"
           >
             <FaTrashAlt />
           </div>
@@ -132,7 +132,7 @@ const CreateComponent = ({ info, currentComponent, removeComponent }) => {
               e.stopPropagation();
               removeComponent(info.id);
             }}
-            className="px-2 py-1 w-fit bg-white absolute text-[12px] hover:text-red-500 top-0 hidden group-hover:block cursor-pointer rounded-sm"
+            className="px-2 py-1 w-fit bg-white absolute text-[12px] text-black hover:text-red-500 top-0 hidden group-hover:block cursor-pointer rounded-sm"
           >
             <FaTrashAlt />
           </div>
@@ -173,7 +173,7 @@ const CreateComponent = ({ info, currentComponent, removeComponent }) => {
               e.stopPropagation();
               removeComponent(info.id);
             }}
-            className="absolute px-1 py-1 w-fit bg-white text-[12px] hover:text-red-500 hidden group-hover:block cursor-pointer rounded-sm top-0 left-0 text-black"
+            className="absolute px-1 py-1 w-fit bg-white text-black text-[12px] hover:text-red-500 hidden group-hover:block cursor-pointer rounded-sm top-0 left-0 text-black"
           >
             <FaTrashAlt />
           </div>
@@ -217,7 +217,7 @@ const CreateComponent = ({ info, currentComponent, removeComponent }) => {
               e.stopPropagation();
               removeComponent(info.id);
             }}
-            className="px-2 py-1 w-fit bg-white absolute text-[12px] hover:text-red-500 top-0 hidden group-hover:block cursor-pointer rounded-sm"
+            className="px-2 py-1 w-fit bg-white text-black absolute text-[12px] hover:text-red-500 top-0 hidden group-hover:block cursor-pointer rounded-sm"
           >
             <FaTrashAlt />
           </div>
