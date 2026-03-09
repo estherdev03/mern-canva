@@ -10,6 +10,7 @@ import Template from "./components/Template";
 import CreateDesign from "./components/CreateDesign";
 import Main from "./pages/Main";
 import Index from "./pages/Index";
+import AuthCallback from "./pages/AuthCallback";
 import { tokenDecode } from "./utils";
 
 const userInfo = tokenDecode(localStorage.getItem("canva_token"));
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
   {
     path: "/design/:designId/edit",
     element: userInfo ? <Main /> : <Navigate to="/" />,
+  },
+  {
+    path: "/auth/callback",
+    element: <AuthCallback />,
   },
 ]);
 

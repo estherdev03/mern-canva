@@ -1,6 +1,7 @@
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const passport = require("passport");
 
 class AuthController {
   userRegister = async (req, res) => {
@@ -38,7 +39,7 @@ class AuthController {
       }
     } catch (error) {
       console.log(error);
-      return res.status(500).json({ message: "Internal Server Error.", token });
+      return res.status(500).json({ message: "Internal Server Error." });
     }
   };
 
@@ -83,6 +84,25 @@ class AuthController {
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }
+  };
+
+  googleAuth = (req, res, next) => {
+    passport.authenticate("google", { scope: ["profile", "email"] })(req, res, next);
+  };
+
+  googleCallback = (req, res, next) => {
+    passport.authenticate("google", (err, data) => {
+      if (err) {
+        const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+        return res.redirect(`${frontendUrl}?error=${encodeURIComponent(err.message)}`);
+      }
+      if (!data || !data.token) {
+        const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+        return res.redirect(`${frontendUrl}?error=${encodeURIComponent("Authentication failed")}`);
+      }
+      const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+      res.redirect(`${frontendUrl}/auth/callback?token=${data.token}`);
+    })(req, res, next);
   };
 }
 

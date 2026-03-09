@@ -3,11 +3,25 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const path = require("path");
+const session = require("express-session");
+const passport = require("passport");
 
 const app = express();
 dotenv.config(); //enable the dotenv config
 
+require("./config/passport");
+
 app.use(express.json());
+app.use(
+  session({
+    secret: process.env.JWT_SECRET || "canva-clone-secret",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: process.env.NODE_ENV === "production" },
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
 if (process.env.NODE_ENV === "local") {
   app.use(

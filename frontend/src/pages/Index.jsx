@@ -1,10 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { IoClose } from "react-icons/io5";
 import SignupForm from "../components/SignupForm";
 import SigninForm from "../components/SigninForm";
+import toast from "react-hot-toast";
+
 const Index = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [type, setType] = useState("");
   const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    const error = searchParams.get("error");
+    if (error) {
+      toast.error(decodeURIComponent(error));
+      setSearchParams({}, { replace: true });
+    }
+  }, [searchParams, setSearchParams]);
   const [state, setState] = useState({
     name: "",
     email: "",

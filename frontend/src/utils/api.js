@@ -1,5 +1,6 @@
 import axios from "axios";
-const local_api = "http://localhost:5000";
+export const API_BASE_URL = "http://localhost:5000";
+const local_api = API_BASE_URL;
 // const production_api = "";
 
 const token = localStorage.getItem("canva_token");

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
-import api from "../utils/api";
+import api, { API_BASE_URL } from "../utils/api";
 import toast from "react-hot-toast";
 
 const SignupForm = ({ inputHandler, state, setState }) => {
@@ -79,13 +79,15 @@ const SignupForm = ({ inputHandler, state, setState }) => {
         <div className="w-[40%] h-px bg-slate-700/70" />
       </div>
       <div className="flex flex-col gap-2 text-sm">
-        <button className="px-3 py-2 flex justify-center items-center gap-2 rounded-md border border-slate-700 bg-[#020617] hover:bg-slate-900 w-full outline-none text-slate-100 transition-colors">
+        <button
+          type="button"
+          onClick={() =>
+            (window.location.href = `${API_BASE_URL}/api/auth/google`)
+          }
+          className="px-3 py-2 flex justify-center items-center gap-2 rounded-md border border-slate-700 bg-[#020617] hover:bg-slate-900 w-full outline-none text-slate-100 transition-colors"
+        >
           <FaGoogle className="text-center" />
           <span>Google</span>
-        </button>
-        <button className="px-3 py-2 flex justify-center items-center gap-2 rounded-md border border-slate-700 bg-[#020617] hover:bg-slate-900 w-full outline-none text-slate-100 transition-colors">
-          <FaFacebook className="text-center" />
-          <span>Facebook</span>
         </button>
       </div>
     </form>

@@ -10,7 +10,7 @@ const Layout = () => {
   const [show, setShow] = useState(false);
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     const getUser = async () => {
@@ -77,9 +77,10 @@ const Layout = () => {
               className="cursor-pointer"
             >
               <img
-                className="w-[40px] h-[40px] rounded-full border border-slate-700"
-                src="https://res.cloudinary.com/devllaqhm/image/upload/v1772358750/istockphoto-2151669184-612x612_bjkchv.jpg"
-                alt="avatar placeholder"
+                className="w-[40px] h-[40px] rounded-full border border-slate-700 object-cover"
+                src={user?.image || "https://res.cloudinary.com/devllaqhm/image/upload/v1772358750/istockphoto-2151669184-612x612_bjkchv.jpg"}
+                alt="avatar"
+                referrerPolicy="no-referrer"
               />
             </div>
             <div
@@ -91,9 +92,10 @@ const Layout = () => {
             >
               <div className="px-2 py-2 flex justify-start gap-3 items-center">
                 <img
-                  className="w-[40px] h-[40px] rounded-full border border-slate-700"
-                  src="https://res.cloudinary.com/devllaqhm/image/upload/v1772358750/istockphoto-2151669184-612x612_bjkchv.jpg"
-                  alt="avatar placeholder"
+                  className="w-[40px] h-[40px] rounded-full border border-slate-700 object-cover"
+                  src={user?.image || "https://res.cloudinary.com/devllaqhm/image/upload/v1772358750/istockphoto-2151669184-612x612_bjkchv.jpg"}
+                  alt="avatar"
+                  referrerPolicy="no-referrer"
                 />
                 <div className="flex flex-col items-start">
                   <span className="text-slate-100 font-semibold text-sm">
@@ -124,9 +126,10 @@ const Layout = () => {
         <div className="sidebar p-4 md:p-5 bg-[#020617]/90 border-r border-slate-800">
           <div className="flex flex-col items-center gap-3 mb-6 md:flex-row">
             <img
-              className="w-[44px] h-[44px] rounded-full border border-slate-700"
-              src="https://res.cloudinary.com/devllaqhm/image/upload/v1772358750/istockphoto-2151669184-612x612_bjkchv.jpg"
-              alt="avatar placeholder"
+              className="w-[44px] h-[44px] rounded-full border border-slate-700 object-cover"
+              src={user?.image || "https://res.cloudinary.com/devllaqhm/image/upload/v1772358750/istockphoto-2151669184-612x612_bjkchv.jpg"}
+              alt="avatar"
+              referrerPolicy="no-referrer"
             />
             <div className="flex justify-center items-center text-center flex-col md:items-start md:text-left text-slate-100">
               <span className="font-semibold text-sm md:text-base">
