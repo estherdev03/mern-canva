@@ -24,7 +24,8 @@
     "formidable": "^3.5.4",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.2.1",
-    "nodemon": "^3.1.14"
+    "nodemon": "^3.1.14",
+    "passport-google-oauth20": "^2.0.0"
   },
   "devDependencies": {
     "concurrently": "^9.2.1"
