@@ -7,7 +7,7 @@ const session = require("express-session");
 const passport = require("passport");
 
 const app = express();
-dotenv.config(); //enable the dotenv config
+dotenv.config();
 
 require("./config/passport");
 
@@ -43,8 +43,7 @@ app.use("/api", require("./routes/designRoutes"));
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "./frontend/dist")));
-  // From express v5, cannot use * for wildcard
-  app.get("/{*wildcard}", (req, res) => {
+  app.get("/*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
   });
 }
@@ -65,5 +64,11 @@ const dbConnect = async () => {
 
 dbConnect();
 
-const PORT = process.env.PORT;
-app.listen(PORT, () => console.log(`Server is running on port ${PORT}...`));
+// For local development, start the server normally.
+// On Vercel (serverless), we export the app instead and do not call listen.
+if (!process.env.VERCEL) {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => console.log(`Server is running on port ${PORT}...`));
+}
+
+module.exports = app;
