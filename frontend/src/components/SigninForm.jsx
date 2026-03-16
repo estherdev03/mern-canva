@@ -10,7 +10,7 @@ const SigninForm = ({ inputHandler, state, setState }) => {
     e.preventDefault();
     try {
       setLoading(true);
-      const { data } = await api.post("/api/user-login", state);
+      const { data } = await api.post("/user-login", state);
       setLoading(false);
       localStorage.setItem("canva_token", data.token);
       setState({

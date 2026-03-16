@@ -10,7 +10,7 @@ const SignupForm = ({ inputHandler, state, setState }) => {
     e.preventDefault();
     try {
       setLoading(true);
-      const { data } = await api.post("/api/user-register", state);
+      const { data } = await api.post("/user-register", state);
       setLoading(false);
       localStorage.setItem("canva_token", data.token);
       setState({
