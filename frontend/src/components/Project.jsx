@@ -8,9 +8,9 @@ const Project = ({ designId, type }) => {
 
   const deleteDesign = async (designId) => {
     try {
-      const { data } = await api.put(`api/delete-user-image/${designId}`);
+      const { data } = await api.put(`/delete-user-image/${designId}`);
       toast.success(data.message);
-      const rest = (await api.get("/api/get-user-designs")).data.designs;
+      const rest = (await api.get("/get-user-designs")).data.designs;
       setDesigns([...rest]);
     } catch (error) {
       toast.error(error.response.data.message);
@@ -20,7 +20,7 @@ const Project = ({ designId, type }) => {
   useEffect(() => {
     const getUserDesign = async () => {
       try {
-        const { data } = await api.get("/api/get-user-designs");
+        const { data } = await api.get("/get-user-designs");
         setDesigns(data.designs);
       } catch (error) {
         console.log(error);

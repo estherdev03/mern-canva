@@ -15,7 +15,7 @@ const Layout = () => {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const { data } = await api.get("/api/user");
+        const { data } = await api.get("/user");
         setUser(data.user);
       } catch (error) {
         toast.error(error.response.data.message);
