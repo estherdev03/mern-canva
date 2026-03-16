@@ -39,7 +39,10 @@ class AuthController {
       }
     } catch (error) {
       console.log(error);
-      return res.status(500).json({ message: "Internal Server Error." });
+      return res.status(500).json({
+        message: "Internal Server Error.",
+        detail: error.message || "Unknown error",
+      });
     }
   };
 
