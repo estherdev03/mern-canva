@@ -9,7 +9,7 @@ const TemplateDesign = ({ type }) => {
   useEffect(() => {
     const getTemplates = async () => {
       try {
-        const { data } = await api.get("/api/get-templates");
+        const { data } = await api.get("/get-templates");
         setTemplates(data.templates);
       } catch (error) {
         console.log(error);
@@ -20,7 +20,7 @@ const TemplateDesign = ({ type }) => {
 
   const addTemplate = async (id) => {
     try {
-      const { data } = await api.get(`/api/add-user-template/${id}`);
+      const { data } = await api.get(`/add-user-template/${id}`);
       navigate(`/design/${data.design._id}/edit`);
     } catch (error) {
       console.log(error);

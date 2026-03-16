@@ -8,7 +8,7 @@ const InitialImage = ({ addImage }) => {
   useEffect(() => {
     const getImages = async () => {
       try {
-        const { data } = await api.get("/api/get-design-images");
+        const { data } = await api.get("/get-design-images");
         setImages(data.images);
       } catch (error) {
         console.log(error);

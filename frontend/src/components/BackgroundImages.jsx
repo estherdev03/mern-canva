@@ -8,7 +8,7 @@ const BackgroundImages = ({ type, setImg, currentComponent }) => {
   useEffect(() => {
     const getImages = async () => {
       try {
-        const { data } = await api.get("/api/get-background-images");
+        const { data } = await api.get("/get-background-images");
         setImages(data.images);
       } catch (error) {
         console.log(error);

@@ -82,7 +82,7 @@ const SignupForm = ({ inputHandler, state, setState }) => {
         <button
           type="button"
           onClick={() =>
-            (window.location.href = `${API_BASE_URL}/api/auth/google`)
+            (window.location.href = `${API_BASE_URL}/auth/google`)
           }
           className="px-3 py-2 flex justify-center items-center gap-2 rounded-md border border-slate-700 bg-[#020617] hover:bg-slate-900 w-full outline-none text-slate-100 transition-colors"
         >

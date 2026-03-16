@@ -13,7 +13,7 @@ const MyImages = ({ addImage }) => {
       formData.append("image", e.target.files[0]);
       try {
         setLoading(true);
-        const { data } = await api.post("/api/add-user-image", formData);
+        const { data } = await api.post("/add-user-image", formData);
         setImages([...images, data.userImage]);
         setLoading(false);
         toast.success(data.message);
@@ -27,7 +27,7 @@ const MyImages = ({ addImage }) => {
   useEffect(() => {
     const getImages = async () => {
       try {
-        const { data } = await api.get("/api/get-user-image");
+        const { data } = await api.get("/get-user-image");
         setImages(data.images);
       } catch (error) {
         console.log(error);

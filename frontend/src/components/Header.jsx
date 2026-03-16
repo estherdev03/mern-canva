@@ -37,7 +37,7 @@ const Header = ({ components, designId }) => {
       try {
         setLoading(true);
         const { data } = await api.put(
-          `/api/update-user-design/${designId}`,
+          `/update-user-design/${designId}`,
           formData,
         );
         setLoading(false);

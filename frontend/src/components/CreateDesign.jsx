@@ -37,7 +37,7 @@ const CreateDesign = () => {
       formData.append("image", image);
       try {
         setLoading(true);
-        const { data } = await api.post("/api/create-user-design", formData);
+        const { data } = await api.post("/create-user-design", formData);
         setLoading(false);
         navigate(`/design/${data.design._id}/edit`);
       } catch (error) {
