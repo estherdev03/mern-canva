@@ -37,24 +37,46 @@ if (process.env.NODE_ENV === "local") {
   );
 }
 
-app.use("/api", require("./routes/authRoutes"));
-app.use("/api", require("./routes/designRoutes"));
+const getConnectionUri = () =>
+  process.env.NODE_ENV === "local"
+    ? process.env.LOCAL_DB_URI
+    : process.env.MONGODB_URI;
 
-const dbConnect = async () => {
+let connectionPromise = null;
+const ensureDb = async () => {
+  if (mongoose.connection.readyState === 1) return;
+  if (connectionPromise) {
+    await connectionPromise;
+    return;
+  }
+  connectionPromise = mongoose.connect(getConnectionUri());
   try {
-    if (process.env.NODE_ENV === "local") {
-      await mongoose.connect(process.env.LOCAL_DB_URI);
-      console.log("Local database is connected...");
-    } else {
-      await mongoose.connect(process.env.MONGODB_URI);
-      console.log("Production database is connected...");
-    }
+    await connectionPromise;
+    console.log("Database is connected...");
   } catch (error) {
-    console.log("Database connection falied.");
+    connectionPromise = null;
+    console.error("Database connection failed.", error.message);
+    throw error;
   }
 };
 
-dbConnect();
+// Wait for DB before handling any API request (fixes Vercel serverless cold start)
+app.use("/api", async (req, res, next) => {
+  try {
+    await ensureDb();
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.use("/api", require("./routes/authRoutes"));
+app.use("/api", require("./routes/designRoutes"));
+
+// Optional: connect at startup when running a long-lived server (local)
+if (!process.env.VERCEL) {
+  ensureDb().catch(() => {});
+}
 
 // Local development server; Vercel will use the exported app via /api.
 if (!process.env.VERCEL) {
