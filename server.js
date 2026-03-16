@@ -73,6 +73,18 @@ app.use("/api", async (req, res, next) => {
 app.use("/api", require("./routes/authRoutes"));
 app.use("/api", require("./routes/designRoutes"));
 
+// Return JSON for API errors instead of HTML "Internal Server Error"
+app.use((err, req, res, next) => {
+  if (req.path.startsWith("/api")) {
+    console.error("API error:", err.message || err);
+    return res.status(500).json({
+      message: "Internal Server Error.",
+      detail: err.message || "Unknown error",
+    });
+  }
+  next(err);
+});
+
 // Optional: connect at startup when running a long-lived server (local)
 if (!process.env.VERCEL) {
   ensureDb().catch(() => {});
